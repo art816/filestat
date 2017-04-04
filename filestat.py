@@ -9,7 +9,7 @@ def get_statistic(filename):
     "Return dict_items of (word, count) pairs or None."
     wordcount = Counter()
     if os.path.isfile(filename):
-        with open(filename) as file_:
+        with open(filename, encoding="utf-8-sig") as file_:
             #TODO maybe use re.sub('\W', '')
             try:
                 wordcount.update(file_.read().lower().split())
@@ -22,8 +22,8 @@ def get_statistic(filename):
     else:
         print("File {} not exist".format(filename))
 
-def main_func():
-    filename = sys.argv[1]
+
+def main_func(filename):
     wordcount = get_statistic(filename)
     if wordcount:
         #Sort by word.
@@ -36,6 +36,6 @@ def main_func():
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
-        main_func()
+        main_func(sys.argv[1])
     else:
         print("Usage:\n\tfilestat.py <filename>")
