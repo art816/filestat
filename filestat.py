@@ -11,8 +11,14 @@ def get_statistic(filename):
     if os.path.isfile(filename):
         with open(filename) as file_:
             #TODO maybe use re.sub('\W', '')
-            wordcount.update(file_.read().lower().split())
-        return wordcount.items()
+            try:
+                wordcount.update(file_.read().lower().split())
+                return wordcount.items()
+            except UnicodeDecodeError:
+                print('UnicodeDecodeError')
+            except:
+                print("Unexpected error:", sys.exc_info()[0])
+                raise            
     else:
         print("File {} not exist".format(filename))
 
