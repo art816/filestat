@@ -3,12 +3,11 @@
 import sys
 import os
 from collections import Counter
-import re
 
 
 def get_statistic(filename):
-    "Return list of (word, count) pairs."        
-    wordcount = Counter() 
+    "Return dict_items of (word, count) pairs or None."
+    wordcount = Counter()
     if os.path.isfile(filename):
         with open(filename) as file_:
             #TODO maybe use re.sub('\W', '')
@@ -16,7 +15,6 @@ def get_statistic(filename):
         return wordcount.items()
     else:
         print("File {} not exist".format(filename))
-        
 
 def main_func():
     filename = sys.argv[1]
@@ -28,7 +26,7 @@ def main_func():
         wordcount = sorted(wordcount, key=lambda pair: pair[1], reverse=True)
         for word, count in wordcount:
             print("{}: {}".format(word, count))
-    
+
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
